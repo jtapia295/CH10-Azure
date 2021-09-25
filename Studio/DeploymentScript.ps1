@@ -1,8 +1,13 @@
-. .\setupServerAzure.ps1
+. .\serverSetupAzure.ps1
+
+az vm run-command invoke --command-id RunPowerShellScript --scripts "@installChoco.ps1"
+
+az vm stop
+az vm start
+
+az vm run-command invoke --command-id RunPowerShellScript --scripts "@installDependencies.ps1"
 
 # TODO: Clone and push new public ip and KV name to appsetting.json
-#----GetVMIP
-$vmPublicIp = az vm list-ip-addresses -n $vmName --query "[].virtualMachine.network.publicIpAddresses | [].ipAddress" | ConvertFrom-Json
 #-----Udpate Appsettings
 git clone "https://github.com/jtapia295/coding-events-api" "./coding-events-api"
 Set-Location "./coding-events-api"
@@ -19,11 +24,10 @@ git push origin 3-aadb2c
 
 Set-Location ../
 
-az vm run-command invoke --command-id RunShellScript --scripts .\installChoco.ps1
+az vm stop
+az vm start
 
-az vm run-command invoke --command-id RunShellScript --scripts .\installDependencies.ps1
-
-az vm run-command invoke --command-id RunShellScript --scripts .\setupserverVM.ps1
+az vm run-command invoke --command-id RunPowerShellScript --scripts "@setupserverVM.ps1"
 
 
 

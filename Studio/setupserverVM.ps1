@@ -1,3 +1,7 @@
+#-----Refresh Env Vars
+RefreshEnv.cmd
+refreshenv
+
 # Create Directories
 mkdir $env:systemdrive\Users\student\webapp
 mkdir $env:systemdrive\Users\student\webapp\coding-events-api
@@ -19,7 +23,7 @@ FLUSH PRIVILEGES;
 "@ | Add-Content C:\Users\student\setup.sql
 
 mysql -u root -e 'source C:\Users\student\setup.sql'
-exit
+
 $siteName = "Coding Events API"
 #------Publish the site in IIS directory
 dotnet publish -c Release -r win-x64 -o $env:systemdrive\inetpub\CodingEvents

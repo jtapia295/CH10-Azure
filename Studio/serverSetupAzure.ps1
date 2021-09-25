@@ -1,7 +1,7 @@
 # TODO: set variables
 $studentName = "jose"
 $rgName = "jose-ch10-studio-rg"
-$vmName = "jose-ch10-studio-vm"
+$vmName = "jose-studio-vm"
 $vmSize = "Standard_B2s"
 $vmImage = az vm image list --query "[? contains(urn,'Windows') && contains(urn,'2019')] | [0].urn"
 $vmAdminUsername = "student"
@@ -19,6 +19,7 @@ az configure --defaults group="$rgName"
 
 # TODO: provision VM
 az vm create --name $vmName --size $vmSize --image $vmImage --admin-username $vmAdminUsername --admin-password $vmAdminPass --assign-identity
+
 az configure --defaults vm=$vmName 
 
 # TODO: capture the VM systemAssignedIdentity
@@ -28,7 +29,7 @@ $vmObjectId = $(az vm show --query "identity.principalId")
 $vmPublicIp = az vm list-ip-addresses -n $vmName --query "[].virtualMachine.network.publicIpAddresses | [].ipAddress" | ConvertFrom-Json
 
 # TODO: open vm port 443
-az vm open-port --name $vmName --port 443, 80 
+az vm open-port --name $vmName --port 443
 
 # TODO: provision KV
 az keyvault create -n $kvName --enabled-for-deployment true
