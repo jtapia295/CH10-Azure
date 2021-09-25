@@ -6,5 +6,5 @@ Concepts Practiced:
 - Automatically provisioning appsettings
 
 Overview: 
-- Once deploying the main script .\DeploymentScript. It will run dependant on azure cli and 3 subscripts specified in the deplooyment script
+- Once deploying the main script .\DeploymentScript. It will run dependant on azure cli and 3 subscripts specified in the deployment script
 - Further details provided within each script
